@@ -1,3 +1,4 @@
+# https://gaussian37.github.io/vision-opencv-manual_checkboard_points_extractor/
 import os
 from datetime import datetime
 import cv2
