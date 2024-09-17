@@ -116,6 +116,11 @@ def main():
         gray = cv2.equalizeHist(gray)
 
         is_found = False
+        '''
+        - search checkboard images with 'findChessboardCorners' function.
+        - chckboard size is ('num_checkboard_width_intersection', 'num_checkboard_height_intersection')
+        - if checkboard is not found, search smaller size of checkboard with delta_x, delta_y
+        '''
         for delta_x in [0, -1, -2, -3, -4, -5]:
             for delta_y in [0, -1, -2, -3, -4, -5]:
                 checkboard = (num_checkboard_width_intersection+delta_x, num_checkboard_height_intersection+delta_y)
@@ -142,6 +147,7 @@ def main():
             if is_found:
                 break
         
+        # remove unnecessary image files which interrupts calibration.
         if is_found == False:
             os.remove(image_path)
             
@@ -272,6 +278,7 @@ def main():
                 rvecs.pop(idx)
                 tvecs.pop(idx)
                 print("Removed ill-conditioned image {} from the data.  Trying again... {} images remain".format(idx, len(objpoints)))
+                print("Remove unnecessary images to calibrate before running code. It's better to calibrate this.")
             except IndexError:
                 print(err.msg)
                 continue
